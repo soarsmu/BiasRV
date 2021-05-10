@@ -13,6 +13,22 @@ Hope this tool can help build more stable, fair and ethical sentiment analysis s
 
 You can also clone this repository and add it into your own project for further usage.
 
+### Build `neuralcoref` from source code
+
+One of the library that `biasRV` depends on, `neuralcoref`, recently can also some issues when installed via pip. So we recommend users to build `neuralcoref` from source code with the following commands:
+
+```
+git clone https://github.com/huggingface/neuralcoref.git
+cd neuralcoref
+pip install -r requirements.txt
+pip install -e .
+```
+
+You also need to run the following commands if you meet problem ModuleNotFoundError: No module named 'en_core_web_lg'.
+```
+python -m spacy download en
+```
+
 ## Monitoring Sentiment Analysis Systems
 *BiasRV* requires no implementation information of the SA systems. It assumes that an SA system has a function that takes a piece of text as input and returns a boolean value indicating the predicted sentiment. Assuming we have a SA prediction function (`sa_system.predict(text: str) -> bool`) satisfying *BiasRV*'s requirements.
 
