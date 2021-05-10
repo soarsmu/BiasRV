@@ -43,9 +43,29 @@ To instantiate a verifier, we must pass the SA prediction function to the initia
 
 After create the verifier, we can simply replace the original prediction function with `rv.verify(text: str) -> bool, bool`. It also takes a piece of text as input, but it will monitor the original prediction function and check fairness properties to detect biased prediction. It returns two boolean value: the first one indicating predicted sentiments and the second one indicating whether the prediction is potentially biased.
 
-### Replicating results in the accompanying paper
+```
+text = "Dee Snider was inspired to do a two part song by a horror movie. This movie he wrote/directed/produced and starred in details the subjects from those songs (Horror-terria,from TwistedSister/ Stay Hungry). People have commented he must have a sick mind to put something like this out. I don't hear anybody making comments like that about Stephen King, Wes Craven,Dean Koontz,or in his own time Alfred Hitchcock. The movie profiles a modern Psychotic created by current trends in society. Personally I thought it was pretty well done from sheer imagination and inspiration,also without the benefit of a large budget and interviews with actual victims/criminals. This movie is perfect if you want something to give you nightmares and make you cringe about the possible and probable. IT COULD HAPPEN!!"
+
+
+result, is_bias = rv.verify(text)
+
+print(result)
+print(is_bias)
+```
+
+## Replicating results in the accompanying paper
 We also provide necessary models and dataset to replicate results in the paper accompanying *BiasRV*.
 
+### SA Model
+We refer to [BERT-based-SA-System](https://github.com/soarsmu/BERT-based-SA-System) for using the same sentiment analysis in our paper. It also provides a configured docker image that can be easily used. Users can use the docker and install bias_rv.
+
+### Data
+[BERT-based-SA-System](https://github.com/soarsmu/BERT-based-SA-System) also contains IMDb dataset under `./assert/imdb/test.csv`.
+In each line, the first value indicates the true sentiment of the text (1 for positive and 0 for negative), and the second value
+is the corresponding text.
+
+### Results
+When we set `X` and `alpha` to 4 and 0.10, BiasRV can find biased predictions on texts in `biased_predictions.xlsx`.
 
 
 
